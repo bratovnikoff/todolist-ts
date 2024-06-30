@@ -7,7 +7,7 @@ type AddItemFormPropsType = {
 export function AddItemForm(props: AddItemFormPropsType) {
   console.log("Input start render");
 
-  const [newItemTitle, setNewItemTitle] = useState("");
+  const [newItemTitle, setNewItemTitle] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
 
   const onNewTitleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -24,6 +24,7 @@ export function AddItemForm(props: AddItemFormPropsType) {
       setError("Title is required");
       return;
     }
+
     props.addItem(newItemTitle.trim());
     setNewItemTitle("");
   };

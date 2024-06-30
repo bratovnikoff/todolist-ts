@@ -5,11 +5,13 @@ import { v1 } from "uuid";
 import { AddItemForm } from "./AddItemForm";
 
 export type FilterValuesType = "all" | "completed" | "active";
+
 type TodolistType = {
   id: string;
   title: string;
   filter: FilterValuesType;
 };
+
 type TasksStateType = {
   [key: string]: Array<TaskType>;
 };
@@ -24,7 +26,6 @@ function App() {
     { id: todolistId1, title: "What to learn", filter: "all" },
     { id: todolistId2, title: "What to buy", filter: "all" },
   ]);
-
   const [tasksObj, setTasks] = useState<TasksStateType>({
     [todolistId1]: [
       { id: v1(), title: "CSS", isDone: true },
@@ -47,6 +48,7 @@ function App() {
 
   function changeFilter(value: FilterValuesType, todolistId: string) {
     const todolist = todolists.find((tl) => tl.id === todolistId);
+
     if (todolist) {
       todolist.filter = value;
       setTodolist([...todolists]);
@@ -64,6 +66,7 @@ function App() {
   function changeStatus(id: string, isDone: boolean, todolistId: string) {
     const tasks = tasksObj[todolistId];
     const task = tasks.find((t) => t.id === id);
+
     if (task) {
       task.isDone = isDone;
       setTasks({ ...tasksObj });
@@ -84,8 +87,8 @@ function App() {
       filter: "all",
       title: title,
     };
-    setTodolist([todolist, ...todolists]);
 
+    setTodolist([todolist, ...todolists]);
     setTasks({
       ...tasksObj,
       [todolist.id]: [],
@@ -101,7 +104,6 @@ function App() {
         if (tl.filter === "completed") {
           tasksForTodolist = tasksForTodolist.filter((t) => t.isDone);
         }
-
         if (tl.filter === "active") {
           tasksForTodolist = tasksForTodolist.filter((t) => !t.isDone);
         }
